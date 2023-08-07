@@ -571,28 +571,60 @@
 # print("Decrypted:", decrypted_text)  # Output: "HELLO"
 
 
-def generate_braces_combinations(N):
-    def backtrack(combination, open_count, close_count):
-        if len(combination) == 2 * N:
-            combinations.append(combination)
-            return
+# def generate_braces_combinations(N):
+#     def backtrack(combination, open_count, close_count):
+#         if len(combination) == 2 * N:
+#             combinations.append(combination)
+#             return
 
-        if open_count < N:
-            backtrack(combination + '(', open_count + 1, close_count)
+#         if open_count < N:
+#             backtrack(combination + '(', open_count + 1, close_count)
 
-        if close_count < open_count:
-            backtrack(combination + ')', open_count, close_count + 1)
+#         if close_count < open_count:
+#             backtrack(combination + ')', open_count, close_count + 1)
 
-    combinations = []
-    backtrack('', 0, 0)
-    return combinations
+#     combinations = []
+#     backtrack('', 0, 0)
+#     return combinations
+
+# import pandas as pd
+
+# # Sample data
+# data = {
+#     'product_id': [1, 2, 3, 4, 5],
+#     'low_fats': ['Y', 'N', 'Y', 'N', 'Y'],
+#     'recyclable': ['Y', 'N', 'N', 'Y', 'Y']
+# }
+
+# # Create a DataFrame from the data
+# df = pd.DataFrame(data)
+
+# # Filter the DataFrame to get the ids of products that are both low fat and recyclable
+# result_df = df[(df['low_fats'] == 'Y') & (df['recyclable'] == 'Y')]
+
+# # Extract the product_ids as the final result
+# result = result_df['product_id'].tolist()
+
+# print(result)
+
+def maxProduct(nums):
+    if not nums:
+        return 0
+
+    max_product = min_product = result = nums[0]
+
+    for i in range(1, len(nums)):
+        if nums[i] < 0:
+            max_product, min_product = min_product, max_product
+
+        max_product = max(nums[i], max_product * nums[i])
+        min_product = min(nums[i], min_product * nums[i])
+
+        result = max(result, max_product)
+
+    return result
 
 
-def print_braces_combinations(N):
-    combinations = generate_braces_combinations(N)
-    for combination in combinations:
-        print(combination)
-
-
-N = 3  # Replace this with the desired value of N
-print_braces_combinations(N)
+# Example usage:
+nums = [2, 3, -2, 4]
+print(maxProduct(nums))  # Output: 6 (the subarray [2, 3])
